@@ -17,6 +17,7 @@ def fetch_historical_sys_profiles(
 
     historical_sys_profile_location = urljoin(config.hsp_svc_hostname, HSP_SVC_ENDPOINT)
 
+    # TODO: (audit-log) kerlescan/service_interface.py#fetch_data
     historical_sys_profile_result = fetch_data(
         historical_sys_profile_location,
         auth_header,

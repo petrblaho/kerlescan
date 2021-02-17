@@ -41,6 +41,7 @@ def fetch_url(url, auth_header, logger, time_metric, exception_metric):
     logger.debug("fetching %s" % url)
     with time_metric.time():
         with exception_metric.count_exceptions():
+            # TODO: (audit-log)
             response = requests.get(url, headers=auth_header)
     logger.debug("fetched %s" % url)
     _validate_service_response(response, logger)
@@ -63,6 +64,7 @@ def fetch_data(url, auth_header, object_ids, logger, time_metric, exception_metr
 
     while len(object_ids_to_fetch) > 0:
         object_id_batch = object_ids_to_fetch[:BATCH_SIZE]
+        # TODO: (audit-log) read kerlescan/service_interface#fetch_url
         response_json = fetch_url(
             url % (",".join(object_id_batch)),
             auth_header,

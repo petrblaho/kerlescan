@@ -46,11 +46,13 @@ def ensure_account_number(request, logger):
         identity = json.loads(base64.b64decode(auth_key))["identity"]
         if "account_number" not in identity:
             logger.debug("account number not found on identity token %s" % auth_key)
+            # TODO: (audit-log) failure
             raise HTTPError(
                 HTTPStatus.BAD_REQUEST,
                 message="account number not found on identity token",
             )
     else:
+        # TODO: (audit-log) failure
         raise HTTPError(HTTPStatus.BAD_REQUEST, message="identity not found on request")
 
 
@@ -69,6 +71,7 @@ def ensure_has_permission(**kwargs):
     auth_key = get_key_from_headers(request.headers)
     if auth_key:
         try:
+            # TODO: (audit-log) read kerlescan/rbac_service_interface.py#get_perms
             perms = get_perms(
                 kwargs["application"],
                 auth_key,
@@ -79,17 +82,20 @@ def ensure_has_permission(**kwargs):
             for p in perms:
                 if p in kwargs["permissions"]:
                     return  # allow
+            # TODO: (audit-log) failure
             raise HTTPError(
                 HTTPStatus.FORBIDDEN,
                 message="user does not have access to %s" % kwargs["permissions"],
             )
         except RBACDenied:
+            # TODO: (audit-log) failure
             raise HTTPError(
                 HTTPStatus.FORBIDDEN,
                 message="request to retrieve permissions from RBAC was forbidden",
             )
     else:
         # if we got here, reject the request
+        # TODO: (audit-log) failure
         raise HTTPError(HTTPStatus.BAD_REQUEST, message="identity not found on request")
 
 
@@ -120,12 +126,14 @@ def ensure_entitled(request, app_name, logger):
 
     # if we got here, reject the request
     logger.debug("entitlement not found for account.")
+    # TODO: (audit-log) failure
     raise HTTPError(
         HTTPStatus.BAD_REQUEST, message="Entitlement not found for account."
     )
 
 
 def log_username(logger, request):
+    # TODO (audit-log) logon
     if logger.level == logging.DEBUG:
         auth_key = get_key_from_headers(request.headers)
         if auth_key:
@@ -156,6 +164,7 @@ def validate_uuids(system_ids):
             except ValueError:
                 malformed_ids.append(system_id)
     if malformed_ids:
+        # TODO: (audit-log) failure
         raise HTTPError(
             HTTPStatus.BAD_REQUEST,
             message="malformed UUIDs requested (%s)" % ", ".join(malformed_ids),

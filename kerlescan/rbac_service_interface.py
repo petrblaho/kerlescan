@@ -14,6 +14,7 @@ def get_perms(application, service_auth_key, logger, request_metric, exception_m
 
     rbac_location = urljoin(config.rbac_svc_hostname, RBAC_SVC_ENDPOINT) % application
 
+    # TODO: (audit-log) read kerlescan/service_interface.py#fetch_url
     rbac_result = fetch_url(
         rbac_location, auth_header, logger, request_metric, exception_metric
     )

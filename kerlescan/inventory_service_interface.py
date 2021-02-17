@@ -101,6 +101,7 @@ def fetch_systems_with_profiles(system_ids, service_auth_key, logger, counters):
         config.inventory_svc_hostname, INVENTORY_SVC_SYSTEM_TAGS_ENDPOINT
     )
 
+    # TODO: (audit-log) kerlescan/service_interface.py#fetch_data
     systems_result = fetch_data(
         system_location,
         auth_header,
@@ -109,6 +110,7 @@ def fetch_systems_with_profiles(system_ids, service_auth_key, logger, counters):
         counters["inventory_service_requests"],
         counters["inventory_service_exceptions"],
     )
+    # TODO: (audit-log) kerlescan/service_interface.py#fetch_data
     system_profiles_result = fetch_data(
         system_profile_location,
         auth_header,
@@ -117,6 +119,7 @@ def fetch_systems_with_profiles(system_ids, service_auth_key, logger, counters):
         counters["inventory_service_requests"],
         counters["inventory_service_exceptions"],
     )
+    # TODO: (audit-log) kerlescan/service_interface.py#fetch_data
     system_tags_result = fetch_data(
         system_tags_location,
         auth_header,
