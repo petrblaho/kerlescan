@@ -26,6 +26,9 @@ def get_perms(
     logger.error("rbac_data")
     logger.error(rbac_data)
     logger.error(rbac_filters)
+    logger.error("ID")
+    logger.error(id(rbac_filters))
+    logger.error(id(rbac_filters))
     logger.error("getting them")
     if rbac_filters is not None and isinstance(rbac_filters, dict):
         logger.error("we are going to update")
