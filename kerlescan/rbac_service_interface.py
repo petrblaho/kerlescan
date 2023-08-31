@@ -111,6 +111,6 @@ def get_rbac_filters(rbac_data):
                     # flatten them
                     group_ids = [item for row in group_ids for item in row]
 
-    result = {"group.id": group_ids}
+    result = {"group.id": [{"id": group_id} for group_id in set(group_ids)]}
 
     return result
