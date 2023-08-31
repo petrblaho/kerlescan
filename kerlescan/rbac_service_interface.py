@@ -21,10 +21,16 @@ def get_perms(
     ]
     perms = [perm["permission"] for perm in rbac_data]
 
+    logger.error("++++++++++++++++++++++++++++++++")
+    logger.error("get_perms")
+    logger.error(rbac_filters)
+    logger.error("getting them")
     if rbac_filters is not None and isinstance(rbac_filters, dict):
         # get, parse, merge and store RBAC group filters here
         rbac_filters.update(get_rbac_filters(rbac_data))
 
+    logger.error(rbac_filters)
+    logger.error("++++++++++++++++++++++++++++++++")
     return perms
 
 
