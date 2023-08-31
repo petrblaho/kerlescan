@@ -170,8 +170,10 @@ def ensure_has_permission(**kwargs):
         raise HTTPError(HTTPStatus.BAD_REQUEST, message="identity not found on request")
 
     try:
+        logger.error("***********************************")
         logger.error("ensure_has_permission")
         logger.error("ID")
+        logger.error(kwargs.get("rbac_filters"))
         logger.error(id(kwargs.get("rbac_filters")))
         logger.error(id(kwargs.get("rbac_filters")))
         perms = get_perms(
