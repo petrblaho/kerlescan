@@ -22,7 +22,9 @@ def get_perms(
     perms = [perm["permission"] for perm in rbac_data]
 
     logger.error("++++++++++++++++++++++++++++++++")
-    logger.error("get_perms")
+    logger.error("method: get_perms")
+    logger.error("rbac_data")
+    logger.error(rbac_data)
     logger.error(rbac_filters)
     logger.error("getting them")
     if rbac_filters is not None and isinstance(rbac_filters, dict):
