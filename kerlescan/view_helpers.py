@@ -93,6 +93,11 @@ def ensure_account_number(**kwargs):
     logger = kwargs["logger"]
     app_name = kwargs["app_name"]
 
+    logger.error("######################")
+    logger.error("ensure_account_number")
+    logger.error(request.path)
+    logger.error(app_name)
+    logger.error("######################")
     if (
         _is_mgmt_url(request.path)
         or check_request_from_turnpike(request=request, logger=logger)
@@ -119,6 +124,11 @@ def ensure_org_id(**kwargs):
     logger = kwargs["logger"]
     app_name = kwargs["app_name"]
 
+    logger.error("######################")
+    logger.error("ensure_org_id")
+    logger.error(request.path)
+    logger.error(app_name)
+    logger.error("######################")
     if (
         _is_mgmt_url(request.path)
         or check_request_from_turnpike(request=request, logger=logger)
@@ -149,6 +159,11 @@ def ensure_has_permission(**kwargs):
     logger = kwargs["logger"]
     app_name = kwargs["app_name"]
 
+    logger.error("######################")
+    logger.error("ensure_has_permission")
+    logger.error(request.path)
+    logger.error(app_name)
+    logger.error("######################")
     if not enable_rbac:
         return
 
@@ -216,6 +231,12 @@ def ensure_entitled(**kwargs):
     request = kwargs["request"]
     logger = kwargs["logger"]
     app_name = kwargs["app_name"]
+
+    logger.error("######################")
+    logger.error("ensure_entitled")
+    logger.error(request.path)
+    logger.error(app_name)
+    logger.error("######################")
 
     entitlement_key = "insights"
     if enable_smart_mgmt_check:
