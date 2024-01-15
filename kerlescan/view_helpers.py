@@ -65,10 +65,6 @@ def check_service_account_service(**kwargs):
 
     auth = json.loads(base64.b64decode(auth_key))
 
-    import pudb
-
-    pudb.set_trace()
-
     identity_type = auth.get("identity", {}).get("type", None)
     if identity_type == "ServiceAccount":
         logger.audit("Service account found, checking for service account data")
