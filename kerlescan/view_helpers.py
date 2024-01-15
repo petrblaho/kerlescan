@@ -50,6 +50,32 @@ def _is_openapi_url(path, app_name):
     return path == "%s%s/v1/openapi.json" % (path_prefix, app_name)
 
 
+def check_service_account_service(**kwargs):
+    """
+    check_service_account_service kwargs need to contain: request
+    This method check if the request comes from our service account.
+    """
+
+    request = kwargs["request"]
+    logger = kwargs["logger"]
+    auth_key = get_key_from_headers(request.headers)
+
+    if auth_key is None:
+        return False
+
+    auth = json.loads(base64.b64decode(auth_key))
+
+    import pudb
+
+    pudb.set_trace()
+
+    identity_type = auth.get("identity", {}).get("type", None)
+    if identity_type == "ServiceAccount":
+        logger.audit("Service account found, checking for service account data")
+        service_act = auth.get("identity", {}).get("service_account", None)
+        return service_act["username"] and service_act["client_id"]
+
+
 def check_request_from_drift_service(**kwargs):
     """
     check_request_from_drift_service kwargs need to contain: request
@@ -228,6 +254,7 @@ def ensure_entitled(**kwargs):
         or _is_openapi_url(request.path, app_name)
         or check_request_from_drift_service(request=request, logger=logger)
         or check_request_from_turnpike(request=request, logger=logger)
+        or check_service_account_service(request=request, logger=logger)
     ):
         return  # allow request
 
