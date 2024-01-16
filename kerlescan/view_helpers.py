@@ -120,6 +120,7 @@ def ensure_account_number(**kwargs):
         or check_request_from_turnpike(request=request, logger=logger)
         or check_request_from_drift_service(**kwargs)
         or _is_openapi_url(request.path, app_name)
+        or check_service_account_service(request=request, logger=logger)
     ):
         return  # allow request
 
@@ -146,6 +147,7 @@ def ensure_org_id(**kwargs):
         or check_request_from_turnpike(request=request, logger=logger)
         or check_request_from_drift_service(**kwargs)
         or _is_openapi_url(request.path, app_name)
+        or check_service_account_service(request=request, logger=logger)
     ):
         return  # allow request
 
@@ -179,6 +181,7 @@ def ensure_has_permission(**kwargs):
         or check_request_from_drift_service(**kwargs)
         or check_request_from_turnpike(**kwargs)
         or _is_openapi_url(request.path, app_name)
+        or check_request_from_drift_service(request=request, logger=logger)
     ):
         return  # allow request
 
