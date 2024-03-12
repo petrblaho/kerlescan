@@ -29,7 +29,7 @@ def initUnleash():
         url=configs["UNLEASH_URL"],
         app_name="drift",
         cache_directory=configs["UNLEASH_CACHE_DIR"],
-        custom_headers={"Authorization": f'Bearer {configs["UNLEASH_TOKEN"]}'},
+        custom_headers={"Authorization": configs["UNLEASH_TOKEN"]},
     )
     client.initialize_client()
     return client
